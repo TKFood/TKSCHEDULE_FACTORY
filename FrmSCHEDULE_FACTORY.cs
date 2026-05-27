@@ -151,10 +151,47 @@ WHERE TB002 LIKE '%' + @SDATES + '%';
             }
         }
 
+        public void ADD_SFT_OP_REALRUN(string SDATES)
+        {
+            try
+            {
+                var tkId = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sqlsb.Password = tkId.Decryption(sqlsb.Password);
+                sqlsb.UserID = tkId.Decryption(sqlsb.UserID);
+
+                using (var connection = new SqlConnection(sqlsb.ConnectionString))
+                {
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var sqlBuilder = new StringBuilder();
+                        sqlBuilder.AppendFormat(@"
+                            
+
+
+                            ");
+
+
+                        using (var command = new SqlCommand(sqlBuilder.ToString(), connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@SDATES", SDATES);
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ADD_SFT_OP_REALRUN: {ex.Message}");
+            }
+        }
 
         #endregion
 
-            #region BUTTON
+        #region BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
             string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
@@ -162,6 +199,16 @@ WHERE TB002 LIKE '%' + @SDATES + '%';
 
             MessageBox.Show("已完成");
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //轉入外包製程
+            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            ADD_SFT_OP_REALRUN(SDATES);
+            MessageBox.Show("已完成");
+        }
+
         #endregion
+
+
     }
 }
