@@ -506,7 +506,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,TA015 AS [OR017]
                                                 ,'0' AS [OR018]
                                                 ,'0' AS [OR019]
-                                                ,'0' AS [OR020]
+                                                ,TA015 AS [OR020]
                                                 ,'0' AS [OR021]
                                                 ,'0' AS [OR022]
                                                 ,'0' AS [OR023]
@@ -827,7 +827,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,1 TB022
                                                 ,1 TB023
                                                 ,'' TB024
-                                                ,SUBSTRING(CONVERT(NVARCHAR,GETDATE(),112),0,6) TB025
+                                                ,SUBSTRING(CONVERT(NVARCHAR,GETDATE(),112),1,6) TB025
                                                 ,0.0500 TB026
                                                 ,0 TB027
                                                 ,'' TB028
