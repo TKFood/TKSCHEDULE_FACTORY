@@ -704,6 +704,357 @@ namespace TKSCHEDULE_FACTORY
             }
         }
 
+        public void ADD_SFCTB_SFCTC(string SDATES)
+        {
+            try
+            {
+                var tkId = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sqlsb.Password = tkId.Decryption(sqlsb.Password);
+                sqlsb.UserID = tkId.Decryption(sqlsb.UserID);
+
+                using (var connection = new SqlConnection(sqlsb.ConnectionString))
+                {
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var sqlBuilder = new StringBuilder();
+                        sqlBuilder.AppendFormat(@"
+                                                INSERT INTO  [TK_SFTTEST].dbo.SFCTB
+                                                (
+                                                COMPANY
+                                                ,CREATOR
+                                                ,USR_GROUP
+                                                ,CREATE_DATE
+                                                ,MODIFIER
+                                                ,MODI_DATE
+                                                ,FLAG
+                                                ,CREATE_TIME
+                                                ,MODI_TIME
+                                                ,TRANS_TYPE
+                                                ,TRANS_NAME
+                                                ,sync_date
+                                                ,sync_time
+                                                ,sync_mark
+                                                ,sync_count
+                                                ,DataUser
+                                                ,DataGroup
+                                                ,TB001
+                                                ,TB002
+                                                ,TB003
+                                                ,TB004
+                                                ,TB005
+                                                ,TB006
+                                                ,TB007
+                                                ,TB008
+                                                ,TB009
+                                                ,TB010
+                                                ,TB011
+                                                ,TB012
+                                                ,TB013
+                                                ,TB014
+                                                ,TB015
+                                                ,TB016
+                                                ,TB017
+                                                ,TB018
+                                                ,TB019
+                                                ,TB020
+                                                ,TB021
+                                                ,TB022
+                                                ,TB023
+                                                ,TB024
+                                                ,TB025
+                                                ,TB026
+                                                ,TB027
+                                                ,TB028
+                                                ,TB029
+                                                ,TB030
+                                                ,TB031
+                                                ,TB032
+                                                ,TB033
+                                                ,TB034
+                                                ,TB035
+                                                ,TB036
+                                                ,TB037
+                                                ,TB038
+                                                ,TB039
+                                                ,TB040
+                                                ,TB041
+                                                ,TB042
+                                                ,TB043
+                                                ,TB044
+                                                ,TB045
+                                                )
+                                                SELECT 
+                                                'TK_SFTTEST' COMPANY
+                                                ,'160115' CREATOR
+                                                ,'117000' USR_GROUP
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) CREATE_DATE
+                                                ,'160115' MODIFIER
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) MODI_DATE
+                                                ,0 FLAG
+                                                ,CONVERT(NVARCHAR, GETDATE(), 108) CREATE_TIME
+                                                ,CONVERT(NVARCHAR, GETDATE(), 108)  MODI_TIME
+                                                ,'P003' TRANS_TYPE
+                                                ,'Sftb03' TRANS_NAME
+                                                ,'' sync_date
+                                                ,'' sync_time
+                                                ,'' sync_mark
+                                                ,0 sync_count
+                                                ,'' DataUser
+                                                ,'' DataGroup
+                                                ,(CASE WHEN TA001='A510' THEN 'D101' WHEN TA001='A513' THEN 'D103' END)  TB001
+                                                ,TA002 TB002
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) TB003
+                                                ,'3' TB004
+                                                ,TA020 TB005
+                                                ,(SELECT TOP 1 MC002 FROM [TK].dbo.CMSMC WHERE MC001=TA020) TB006
+                                                ,'1' TB007
+                                                ,TA021 TB008
+                                                ,(SELECT TOP 1 MD002 FROM [TK].dbo.CMSMD WHERE MD001=TA021) TB009
+                                                ,TA019 TB010
+                                                ,0 TB011
+                                                ,'N' TB012
+                                                ,'Y' TB013
+                                                ,'' TB014
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) TB015
+                                                ,'160115' TB016
+                                                ,'N' TB017
+                                                ,'' TB018
+                                                ,1 TB019
+                                                ,'' TB020
+                                                ,'' TB021
+                                                ,1 TB022
+                                                ,1 TB023
+                                                ,'' TB024
+                                                ,SUBSTRING(CONVERT(NVARCHAR,GETDATE(),112),0,6) TB025
+                                                ,0.0500 TB026
+                                                ,0 TB027
+                                                ,'' TB028
+                                                ,0 TB029
+                                                ,0 TB030
+                                                ,0 TB031
+                                                ,'' TB032
+                                                ,'' TB033
+                                                ,'' TB034
+                                                ,'' TB035
+                                                ,'NTD' TB036
+                                                ,0 TB037
+                                                ,(CASE WHEN TA001='A510' THEN 'D101' WHEN TA001='A513' THEN 'D103' END) TB038
+                                                ,TA002 TB039
+                                                ,'' TB040
+                                                ,0 TB041
+                                                ,'' TB042
+                                                ,'' TB043
+                                                ,'' TB044
+                                                ,0 TB045
+                                                FROM [TK_SFTTEST].dbo.MOCTA
+                                                WHERE 1=1
+                                                AND NOT EXISTS
+                                                (
+                                                    SELECT 1 
+                                                    FROM [TK_SFTTEST].dbo.SFCTB
+                                                    WHERE TB001=(CASE WHEN TA001='A510' THEN 'D101' WHEN TA001='A513' THEN 'D103' END)
+                                                    AND TB002=TA002
+                                                )
+                                                AND TA002 LIkE '%' + @SDATES + '%'
+
+                                                INSERT INTO [TK_SFTTEST].dbo.SFCTC
+                                                (
+                                                COMPANY
+                                                ,CREATOR
+                                                ,USR_GROUP
+                                                ,CREATE_DATE
+                                                ,MODIFIER
+                                                ,MODI_DATE
+                                                ,FLAG
+                                                ,CREATE_TIME
+                                                ,MODI_TIME
+                                                ,TRANS_TYPE
+                                                ,TRANS_NAME
+                                                ,sync_date
+                                                ,sync_time
+                                                ,sync_mark
+                                                ,sync_count
+                                                ,DataUser
+                                                ,DataGroup
+                                                ,TC001
+                                                ,TC002
+                                                ,TC003
+                                                ,TC004
+                                                ,TC005
+                                                ,TC006
+                                                ,TC007
+                                                ,TC008
+                                                ,TC009
+                                                ,TC010
+                                                ,TC011
+                                                ,TC012
+                                                ,TC013
+                                                ,TC014
+                                                ,TC015
+                                                ,TC016
+                                                ,TC017
+                                                ,TC018
+                                                ,TC019
+                                                ,TC020
+                                                ,TC021
+                                                ,TC022
+                                                ,TC023
+                                                ,TC024
+                                                ,TC025
+                                                ,TC026
+                                                ,TC027
+                                                ,TC028
+                                                ,TC029
+                                                ,TC030
+                                                ,TC031
+                                                ,TC032
+                                                ,TC033
+                                                ,TC034
+                                                ,TC035
+                                                ,TC036
+                                                ,TC037
+                                                ,TC038
+                                                ,TC039
+                                                ,TC040
+                                                ,TC041
+                                                ,TC042
+                                                ,TC043
+                                                ,TC044
+                                                ,TC045
+                                                ,TC046
+                                                ,TC047
+                                                ,TC048
+                                                ,TC049
+                                                ,TC050
+                                                ,TC051
+                                                ,TC052
+                                                ,TC053
+                                                ,TC054
+                                                ,TC055
+                                                ,TC056
+                                                ,TC057
+                                                ,TC058
+                                                ,TC059
+                                                ,TC060
+                                                ,TC061
+                                                ,TC062
+                                                ,TC063
+                                                ,TC064
+                                                )
+
+                                                SELECT 
+                                                'TK_SFTTEST' COMPANY
+                                                ,'160115' CREATOR
+                                                ,'117000' USR_GROUP
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) CREATE_DATE
+                                                ,'160115' MODIFIER
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) MODI_DATE
+                                                ,0 FLAG
+                                                ,CONVERT(NVARCHAR, GETDATE(), 108) CREATE_TIME
+                                                ,CONVERT(NVARCHAR, GETDATE(), 108)  MODI_TIME
+                                                ,'P003' TRANS_TYPE
+                                                ,'Sftb03' TRANS_NAME
+                                                ,'' sync_date
+                                                ,'' sync_time
+                                                ,'' sync_mark
+                                                ,0 sync_count
+                                                ,'' DataUser
+                                                ,'' DataGroup
+                                                ,(CASE WHEN TA001='A510' THEN 'D101' WHEN TA001='A513' THEN 'D103' END) TC001
+                                                ,TA002 TC002
+                                                ,RIGHT('0000' + CAST(ROW_NUMBER() OVER (ORDER BY TA001, TA002,ERP_OPID) AS VARCHAR(4)), 4) TC003
+                                                ,TA001 TC004
+                                                ,TA002 TC005
+                                                ,'' TC006
+                                                ,'' TC007
+                                                ,ERP_OPSEQ TC008
+                                                ,ERP_OPID TC009
+                                                ,MOCTA.TA007 TC010
+                                                ,'' TC011
+                                                ,'' TC012
+                                                ,'6' TC013
+                                                ,MOCTA.TA015 TC014
+                                                ,0 TC015
+                                                ,0 TC016
+                                                ,0 TC017
+                                                ,0 TC018
+                                                ,0 TC019
+                                                ,0 TC020
+                                                ,0 TC021
+                                                ,'N' TC022
+                                                ,MOCTA.TA020 TC023
+                                                ,'' TC024
+                                                ,0 TC025
+                                                ,'N' TC026
+                                                ,'Y' TC027
+                                                ,'' TC028
+                                                ,'' TC029
+                                                ,'' TC030
+                                                ,'' TC031
+                                                ,'' TC032
+                                                ,CONVERT(NVARCHAR(8), DATEADD(MONTH, 10, GETDATE()), 112) TC033
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) TC034
+                                                ,'N' TC035
+                                                ,MOCTA.TA015  TC036
+                                                ,0 TC037
+                                                ,CONVERT(NVARCHAR,GETDATE(),112) TC038
+                                                ,0 TC039
+                                                ,'' TC040
+                                                ,TA021 TC041
+                                                ,0 TC042
+                                                ,0 TC043
+                                                ,0 TC044
+                                                ,0 TC045
+                                                ,0 TC046
+                                                ,MOCTA.TA006 TC047
+                                                ,MOCTA.TA034 TC048
+                                                ,MOCTA.TA035 TC049
+                                                ,'' TC050
+                                                ,0 TC051
+                                                ,'' TC052
+                                                ,0 TC053
+                                                ,0 TC054
+                                                ,'' TC055
+                                                ,'' TC056
+                                                ,'' TC057
+                                                ,'' TC058
+                                                ,'' TC059
+                                                ,0 TC060
+                                                ,'' TC061
+                                                ,'' TC062
+                                                ,'' TC063
+                                                ,0 TC064
+                                                FROM [SFT_TK_SFTTEST].dbo.SFT_OP_REALRUN,[TK_SFTTEST].dbo.MOCTA
+                                                WHERE ID=TA001+'-'+TA002
+                                                AND NOT EXISTS
+                                                (
+                                                    SELECT 1 
+                                                    FROM [TK_SFTTEST].dbo.SFCTC
+                                                    WHERE TC001=(CASE WHEN TA001='A510' THEN 'D101' WHEN TA001='A513' THEN 'D103' END)
+                                                    AND TC002=TA002
+                                                )
+                                                AND ID LIkE '%' + @SDATES + '%'
+                                                               
+                                                ");
+
+
+                        using (var command = new SqlCommand(sqlBuilder.ToString(), connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@SDATES", SDATES);
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ADD_SFCTB_SFCTC: {ex.Message}");
+            }
+        }
         #endregion
 
         #region BUTTON
@@ -727,6 +1078,13 @@ namespace TKSCHEDULE_FACTORY
             //轉入製令-TKSFT>SFT
             string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
             ADD_SFT_MODETAIL(SDATES);
+            MessageBox.Show("已完成");
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //製令的製程發放
+            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            ADD_SFCTB_SFCTC(SDATES);
             MessageBox.Show("已完成");
         }
         #endregion
