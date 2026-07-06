@@ -1082,10 +1082,11 @@ namespace TKSCHEDULE_FACTORY
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            //不能用，因為kmi不直接讀資料庫
             //製令的製程發放
-            string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
-            ADD_SFCTB_SFCTC(SDATES);
-            MessageBox.Show("已完成");
+            //string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
+            //ADD_SFCTB_SFCTC(SDATES);
+            //MessageBox.Show("已完成");
         }
         #endregion
 
