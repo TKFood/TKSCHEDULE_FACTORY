@@ -638,6 +638,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,MO034
                                                 ,MO035
                                                 ,MO016) 
+
                                                 SELECT 
                                                 TA001+'-'+TA002 AS CMOID
                                                 ,TA026+'-'+TA027 DOID
