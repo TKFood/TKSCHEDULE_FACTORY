@@ -703,6 +703,345 @@ namespace TKSCHEDULE_FACTORY
                 System.Diagnostics.Debug.WriteLine($"Error in ADD_SFT_MODETAIL: {ex.Message}");
             }
         }
+        public void ADD_SFT_LOT(string SDATES)
+        {
+            try
+            {
+                var tkId = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sqlsb.Password = tkId.Decryption(sqlsb.Password);
+                sqlsb.UserID = tkId.Decryption(sqlsb.UserID);
+
+                using (var connection = new SqlConnection(sqlsb.ConnectionString))
+                {
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var sqlBuilder = new StringBuilder();
+                        sqlBuilder.AppendFormat(@"
+                                                INSERT INTO  [SFT_TK_SFTTEST].[dbo].[LOT]
+                                                (
+                                                [ID]
+                                                ,[TYPE]
+                                                ,[MOID]
+                                                ,[RELEASEDATETIME]
+                                                ,[ITEMID]
+                                                ,[LOTSIZE]
+                                                ,[DUEDATETIME]
+                                                ,[PRIORITY]
+                                                ,[STATUS]
+                                                ,[ROUTESEQ]
+                                                ,[STEPSEQ]
+                                                ,[ALTID]
+                                                ,[OPERATIONSEQ]
+                                                ,[EQUIPMENTID]
+                                                ,[OPERATEDTIME]
+                                                ,[REMAINTIME]
+                                                ,[MFGFLAG]
+                                                ,[QTIME1]
+                                                ,[QTIME2]
+                                                ,[QTIME3]
+                                                ,[QTIME4]
+                                                ,[QTIME5]
+                                                ,[QTIME6]
+                                                ,[QTIME7]
+                                                ,[QTIME8]
+                                                ,[ISBANKORDER]
+                                                ,[RECIPEID]
+                                                ,[ISSUPPLY]
+                                                ,[ISPLANNED]
+                                                ,[OUTPUTQTY]
+                                                ,[REMAININGTIME]
+                                                ,[LOTGROUP]
+                                                ,[PARTSISSUEDSTATUS]
+                                                ,[KEYVALUE]
+                                                ,[LOCKVALUE]
+                                                ,[PASSVALUE]
+                                                ,[CHECKMAINTAINNO]
+                                                ,[LASTMAINTAINUSER]
+                                                ,[LASTMAINTAINDATETIME]
+                                                ,[UNIT]
+                                                ,[QTYPER]
+                                                ,[LOCATION]
+                                                ,[DESCRIPTION]
+                                                ,[SPLIT_ITEMID]
+                                                ,[ORIGINAL_MOID]
+                                                ,[ORIGINAL_LOTID]
+                                                ,[REWORK_OPID]
+                                                ,[MO_SEQUENCE]
+                                                ,[SPLIT_OPID]
+                                                ,[HEAD_OP_SEQ]
+                                                ,[SUBMITFLAG]
+                                                ,[ERP_OPSEQ]
+                                                ,[ERP_OPID]
+                                                ,[ERP_WSID]
+                                                ,[LOT001]
+                                                ,[LOT002]
+                                                ,[LOT003]
+                                                ,[LOT004]
+                                                ,[LOT005]
+                                                ,[LOT006]
+                                                ,[PKQTY]
+                                                ,[PKQTYPER]
+                                                ,[PKUNIT]
+                                                ,[LOT007]
+                                                ,[LOT008]
+                                                ,[LOT009]
+                                                ,[LOT010]
+                                                ,[LOT011]
+                                                ,[LOT012]
+                                                ,[LOT013]
+                                                ,[LOT014]
+                                                ,[LOT015]
+                                                ,[LOT016]
+                                                )
+
+                                                SELECT 
+                                                TA001+'-'+TA002 [ID]
+                                                ,1 [TYPE]
+                                                ,TA001+'-'+TA002 [MOID]
+                                                ,'' [RELEASEDATETIME]
+                                                ,TA006 [ITEMID]
+                                                ,TA015 [LOTSIZE]
+                                                ,NULL [DUEDATETIME]
+                                                ,NULL [PRIORITY]
+                                                ,0 [STATUS]
+                                                ,NULL [ROUTESEQ]
+                                                ,NULL [STEPSEQ]
+                                                ,NULL [ALTID]
+                                                ,NULL [OPERATIONSEQ]
+                                                ,NULL[EQUIPMENTID]
+                                                ,NULL [OPERATEDTIME]
+                                                ,NULL [REMAINTIME]
+                                                ,NULL [MFGFLAG]
+                                                ,NULL [QTIME1]
+                                                ,NULL [QTIME2]
+                                                ,NULL [QTIME3]
+                                                ,NULL [QTIME4]
+                                                ,NULL [QTIME5]
+                                                ,NULL [QTIME6]
+                                                ,NULL [QTIME7]
+                                                ,NULL [QTIME8]
+                                                ,NULL [ISBANKORDER]
+                                                ,NULL [RECIPEID]
+                                                ,1 [ISSUPPLY]
+                                                ,1 [ISPLANNED]
+                                                ,NULL [OUTPUTQTY]
+                                                ,NULL [REMAININGTIME]
+                                                ,NULL [LOTGROUP]
+                                                ,NULL [PARTSISSUEDSTATUS]
+                                                ,NULL [KEYVALUE]
+                                                ,NULL [LOCKVALUE]
+                                                ,NULL [PASSVALUE]
+                                                ,NULL [CHECKMAINTAINNO]
+                                                ,NULL [LASTMAINTAINUSER]
+                                                ,NULL [LASTMAINTAINDATETIME]
+                                                ,TA007 [UNIT]
+                                                ,1 [QTYPER]
+                                                ,'release' [LOCATION]
+                                                ,NULL [DESCRIPTION]
+                                                ,NULL [SPLIT_ITEMID]
+                                                ,NULL [ORIGINAL_MOID]
+                                                ,NULL [ORIGINAL_LOTID]
+                                                ,NULL [REWORK_OPID]
+                                                ,0 [MO_SEQUENCE]
+                                                ,NULL [SPLIT_OPID]
+                                                ,0 [HEAD_OP_SEQ]
+                                                ,0 [SUBMITFLAG]
+                                                ,'' [ERP_OPSEQ]
+                                                ,'' [ERP_OPID]
+                                                ,'' [ERP_WSID]
+                                                ,NULL [LOT001]
+                                                ,NULL [LOT002]
+                                                ,NULL [LOT003]
+                                                ,NULL [LOT004]
+                                                ,NULL [LOT005]
+                                                ,NULL [LOT006]
+                                                ,0 [PKQTY]
+                                                ,0 [PKQTYPER]
+                                                ,'' [PKUNIT]
+                                                ,0 [LOT007]
+                                                ,'' [LOT008]
+                                                ,'' [LOT009]
+                                                ,'' [LOT010]
+                                                ,'N' [LOT011]
+                                                ,NULL [LOT012]
+                                                ,NULL [LOT013]
+                                                ,NULL [LOT014]
+                                                ,NULL [LOT015]
+                                                ,NULL [LOT016]
+                                                FROM [TK_SFTTEST].dbo.MOCTA
+                                                WHERE 1=1
+                                                AND TA021 IN (
+                                                    SELECT [TA021]     
+                                                    FROM [TKSCHEDULE_FACTORY].[dbo].[LIMITS_TA021]
+                                                    WHERE [ISUSED] IN ('Y')
+                                                )
+                                                AND NOT EXISTS
+                                                (
+                                                    SELECT 1 
+                                                    FROM [SFT_TK_SFTTEST].[dbo].[LOT]
+                                                    WHERE RTRIM(ID) = RTRIM(TA001)+'-'+RTRIM(TA002)
+                                                )
+                                                AND TA002 LIkE '%' + @SDATES + '%'
+                                           
+                            ");
+
+
+                        using (var command = new SqlCommand(sqlBuilder.ToString(), connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@SDATES", SDATES);
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ADD_SFT_LOT: {ex.Message}");
+            }
+        }
+
+        public void ADD_SFT_ITEM()
+        {
+            try
+            {
+                var tkId = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sqlsb.Password = tkId.Decryption(sqlsb.Password);
+                sqlsb.UserID = tkId.Decryption(sqlsb.UserID);
+
+                using (var connection = new SqlConnection(sqlsb.ConnectionString))
+                {
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var sqlBuilder = new StringBuilder();
+                        sqlBuilder.AppendFormat(@"
+                                                INSERT INTO [SFT_TK_SFTTEST].[dbo].[ITEM]
+                                                (
+                                                [ID]
+                                                ,[NAME]
+                                                ,[DESCRIPTION]
+                                                ,[ITEMGROUPID]
+                                                ,[SAFETYSTOCKQTY]
+                                                ,[EXISTSTOCKQTY]
+                                                ,[ISBANKORDERITEM]
+                                                ,[MAXBANKQTY]
+                                                ,[FIXEDLEADTIME]
+                                                ,[VARIABLELEADTIME]
+                                                ,[LEADTIMERATIO]
+                                                ,[MAXBATCH]
+                                                ,[MINBATCH]
+                                                ,[INCREASEQTY]
+                                                ,[EARLYCONSUMEDAY]
+                                                ,[LATECONSUMEDAY]
+                                                ,[ISLOTCONNECT]
+                                                ,[LAYERNAME]
+                                                ,[CHECKMAINTAINNO]
+                                                ,[LASTMAINTAINUSER]
+                                                ,[LASTMAINTAINDATETIME]
+                                                ,[LOTSPLIT]
+                                                ,[TRACK_TYPE]
+                                                ,[RELEASEQTYPER]
+                                                ,[BUILDQTY]
+                                                ,[BASEQTY]
+                                                ,[RELEASEUNIT]
+                                                ,[ISSUBSTITUTE]
+                                                ,[STDROUTEITEMID]
+                                                ,[STDROUTEID]
+                                                ,[ITEMTYPE]
+                                                ,[CHECKBY]
+                                                ,[SERIALMANAGEMENT]
+                                                ,[UNIT]
+                                                ,[FILENAME]
+                                                ,[FLAG]
+                                                ,[ITEM001]
+                                                ,[ITEM002]
+                                                ,[ITEM003]
+                                                ,[ITEM004]
+                                                ,[ITEM005]
+                                                ,[ITEM006]
+                                                ,[ITEM007]
+                                                ,[ITEM008]
+                                                ,[ITEM009]
+                                                )
+                                                SELECT 
+                                                MB001 [ID]
+                                                ,MB002 [NAME]
+                                                ,MB003 [DESCRIPTION]
+                                                ,'' [ITEMGROUPID]
+                                                ,0 [SAFETYSTOCKQTY]
+                                                ,0 [EXISTSTOCKQTY]
+                                                ,0 [ISBANKORDERITEM]
+                                                ,999999 [MAXBANKQTY]
+                                                ,0 [FIXEDLEADTIME]
+                                                ,0 [VARIABLELEADTIME]
+                                                ,0 [LEADTIMERATIO]
+                                                ,999999 [MAXBATCH]
+                                                ,1 [MINBATCH]
+                                                ,1 [INCREASEQTY]
+                                                ,999999 [EARLYCONSUMEDAY]
+                                                ,999999 [LATECONSUMEDAY]
+                                                ,0 [ISLOTCONNECT]
+                                                ,'' [LAYERNAME]
+                                                ,NULL [CHECKMAINTAINNO]
+                                                ,NULL [LASTMAINTAINUSER]
+                                                ,NULL [LASTMAINTAINDATETIME]
+                                                ,0 [LOTSPLIT]
+                                                ,0 [TRACK_TYPE]
+                                                ,1 [RELEASEQTYPER]
+                                                ,1 [BUILDQTY]
+                                                ,1 [BASEQTY]
+                                                ,MB004 [RELEASEUNIT]
+                                                ,1 [ISSUBSTITUTE]
+                                                ,NULL [STDROUTEITEMID]
+                                                ,NULL [STDROUTEID]
+                                                ,2 [ITEMTYPE]
+                                                ,2 [CHECKBY]
+                                                ,'N' [SERIALMANAGEMENT]
+                                                ,MB004 [UNIT]
+                                                ,FLAG [FILENAME]
+                                                ,MB004 [FLAG]
+                                                ,NULL [ITEM001]
+                                                ,'N' [ITEM002]
+                                                ,'N' [ITEM003]
+                                                ,0 [ITEM004]
+                                                ,1 [ITEM005]
+                                                ,1 [ITEM006]
+                                                ,'N' [ITEM007]
+                                                ,NULL [ITEM008]
+                                                ,NULL [ITEM009]
+                                                FROM [TK].dbo.INVMB
+                                                WHERE (MB001 LIKE '4%')
+                                                AND  NOT EXISTS
+                                                (
+                                                    SELECT 1 
+                                                    FROM [SFT_TK_SFTTEST].[dbo].[ITEM]
+                                                    WHERE [ID]=MB001
+                                                )                    
+                                           
+                            ");
+
+
+                        using (var command = new SqlCommand(sqlBuilder.ToString(), connection, transaction))
+                        {
+                            //ommand.Parameters.AddWithValue("@SDATES", SDATES);
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ADD_SFT_ITEM: {ex.Message}");
+            }
+        }
+
 
         public void ADD_SFCTB_SFCTC(string SDATES)
         {
@@ -1078,6 +1417,8 @@ namespace TKSCHEDULE_FACTORY
             //轉入製令-TKSFT>SFT
             string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
             ADD_SFT_MODETAIL(SDATES);
+            ADD_SFT_LOT(SDATES);
+            ADD_SFT_ITEM();
             MessageBox.Show("已完成");
         }
         private void button4_Click(object sender, EventArgs e)
