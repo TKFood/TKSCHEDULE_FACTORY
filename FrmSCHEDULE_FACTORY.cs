@@ -832,7 +832,7 @@ namespace TKSCHEDULE_FACTORY
                                                 TA001+'-'+TA002 [ID]
                                                 ,1 [TYPE]
                                                 ,TA001+'-'+TA002 [MOID]
-                                                ,'' [RELEASEDATETIME]
+                                                ,NULL [RELEASEDATETIME]
                                                 ,TA006 [ITEMID]
                                                 ,TA015 [LOTSIZE]
                                                 ,NULL [DUEDATETIME]
