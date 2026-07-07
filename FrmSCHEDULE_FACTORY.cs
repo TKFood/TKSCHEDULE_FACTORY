@@ -652,6 +652,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,MO029	
                                                 ,MO030	
                                                 ,MO031
+                                                ,LASTMAINTAINDATETIME
                                                 ) 
 
                                                 SELECT 
@@ -699,6 +700,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,0 MO029	
                                                 ,0 MO030	
                                                 ,0 MO031
+                                                ,GETDATE() LASTMAINTAINDATETIME
                                                 FROM [TK_SFTTEST].dbo.MOCTA
                                                 WHERE 1=1
                                                 AND TA021 IN (
@@ -865,7 +867,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,NULL [PASSVALUE]
                                                 ,NULL [CHECKMAINTAINNO]
                                                 ,NULL [LASTMAINTAINUSER]
-                                                ,NULL [LASTMAINTAINDATETIME]
+                                                ,GETDATE() [LASTMAINTAINDATETIME]
                                                 ,TA007 [UNIT]
                                                 ,1 [QTYPER]
                                                 ,'release' [LOCATION]
