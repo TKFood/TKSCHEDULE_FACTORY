@@ -412,8 +412,8 @@ namespace TKSCHEDULE_FACTORY
                                                 ,'0' AS [STANDARDMANWORKTIME]
                                                 ,'1' AS [COMPLEXION]
                                                 ,NULL AS [TA007]
-                                                ,CONVERT(NVARCHAR(10), @SDATES, 111) AS [PROCESSST]
-                                                ,CONVERT(NVARCHAR(10), @SDATES, 111) AS [PROCESSET]
+                                                ,NULL AS [PROCESSST]
+                                                ,NULL AS [PROCESSET]
                                                 ,'0' AS [TA013]
                                                 ,'0' AS [TA014]
                                                 ,'0' AS [TA015]
@@ -637,7 +637,9 @@ namespace TKSCHEDULE_FACTORY
                                                 ,MO033
                                                 ,MO034
                                                 ,MO035
-                                                ,MO016) 
+                                                ,MO016
+                                                ,MO025
+                                                ) 
 
                                                 SELECT 
                                                 TA001+'-'+TA002 AS CMOID
@@ -649,7 +651,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,TA015 PLANRELEASEQTY
                                                 ,TA019 FACTORYID
                                                 ,TA020 WAREHOUSEID
-                                                ,TA003 PLANPROCESSST
+                                                ,TA009 PLANPROCESSST
                                                 ,TA007 UNIT
                                                 ,'' COINSTYPE
                                                 ,TA020 MOVEOUTWHID
@@ -670,6 +672,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,TA011 MO034
                                                 ,TA003 MO035
                                                 ,0 MO016
+                                                ,TA009 MO025
                                                 FROM [TK_SFTTEST].dbo.MOCTA
                                                 WHERE 1=1
                                                 AND TA021 IN (
