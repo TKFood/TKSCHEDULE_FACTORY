@@ -639,6 +639,19 @@ namespace TKSCHEDULE_FACTORY
                                                 ,MO035
                                                 ,MO016
                                                 ,MO025
+                                                ,MO009	
+                                                ,MO010
+                                                ,MO017	
+                                                ,MO018	
+                                                ,MO019	
+                                                ,MO020
+                                                ,FLAG
+                                                ,MO024
+                                                ,MO027	
+                                                ,MO028	
+                                                ,MO029	
+                                                ,MO030	
+                                                ,MO031
                                                 ) 
 
                                                 SELECT 
@@ -673,6 +686,19 @@ namespace TKSCHEDULE_FACTORY
                                                 ,TA003 MO035
                                                 ,0 MO016
                                                 ,TA009 MO025
+                                                ,0 MO009	
+                                                ,0 MO010
+                                                ,0 MO017	
+                                                ,0 MO018	
+                                                ,0 MO019	
+                                                ,'N' MO020
+                                                ,MOCTA.FLAG	 FLAG
+                                                ,0 MO024
+                                                ,0 MO027	
+                                                ,0 MO028	
+                                                ,0 MO029	
+                                                ,0 MO030	
+                                                ,0 MO031
                                                 FROM [TK_SFTTEST].dbo.MOCTA
                                                 WHERE 1=1
                                                 AND TA021 IN (
