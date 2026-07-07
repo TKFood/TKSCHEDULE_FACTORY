@@ -393,7 +393,7 @@ namespace TKSCHEDULE_FACTORY
                                                 ,NULL AS [OPERID]
                                                 ,NULL AS [CHECKMAINTAINNO]
                                                 ,NULL AS [LASTMAINTAINUSER]
-                                                ,NULL AS [LASTMAINTAINDATETIME]
+                                                ,GETDATE() AS [LASTMAINTAINDATETIME]
                                                 ,MF.MF008 AS [OPDESCRIPTION]
                                                 ,MB.MB004 AS [UNIT]
                                                 ,'1' AS [QTYPER]
