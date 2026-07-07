@@ -1921,6 +1921,130 @@ namespace TKSCHEDULE_FACTORY
                 System.Diagnostics.Debug.WriteLine($"Error in ADD_SFCTB_SFCTC: {ex.Message}");
             }
         }
+        public void ADD_SFT_MOCTA_MOCTB(string SDATES)
+        {
+            try
+            {
+                var tkId = new Class1();
+                var sqlsb = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString);
+                sqlsb.Password = tkId.Decryption(sqlsb.Password);
+                sqlsb.UserID = tkId.Decryption(sqlsb.UserID);
+
+                using (var connection = new SqlConnection(sqlsb.ConnectionString))
+                {
+                    connection.Open();
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        var sqlBuilder = new StringBuilder();
+                        sqlBuilder.AppendFormat(@"                                                
+                                                INSERT INTO [SFT_TK_SFTTEST].[dbo].[ERP_MOCTA]
+                                                (
+                                                [TA001]
+                                                ,[TA002]
+                                                ,[TA006]
+                                                ,[TA007]
+                                                ,[TA009]
+                                                ,[TA010]
+                                                ,[TA011]
+                                                ,[TA015]
+                                                ,[TA019]
+                                                ,[TA020]
+                                                ,[TA024]
+                                                ,[TA025]
+                                                ,[TA026]
+                                                ,[TA027]
+                                                ,[TA028]
+                                                ,[TA037]
+                                                ,[TA042]
+                                                ,[TA033]
+                                                ,[TA063]
+                                                ,[FLAG]
+                                                )
+                                                SELECT 
+                                                [TA001]
+                                                ,[TA002]
+                                                ,[TA006]
+                                                ,[TA007]
+                                                ,[TA009]
+                                                ,[TA010]
+                                                ,[TA011]
+                                                ,[TA015]
+                                                ,[TA019]
+                                                ,[TA020]
+                                                ,[TA024]
+                                                ,[TA025]
+                                                ,[TA026]
+                                                ,[TA027]
+                                                ,[TA028]
+                                                ,[TA037]
+                                                ,[TA042]
+                                                ,[TA033]
+                                                ,[TA063]
+                                                ,[FLAG]
+                                                FROM [TK_SFTTEST].dbo.MOCTA
+                                                WHERE 1=1
+                                                AND NOT EXISTS
+                                                (
+	                                                SELECT 1 
+	                                                FROM [SFT_TK_SFTTEST].[dbo].[ERP_MOCTA]
+	                                                WHERE [ERP_MOCTA].TA001=MOCTA.TA001
+	                                                AND [ERP_MOCTA].TA002=MOCTA.TA002
+	
+                                                )
+                                                AND TA002 LIKE '%' + @SDATES + '%'
+
+                                                INSERT INTO [SFT_TK_SFTTEST].[dbo].[ERP_MOCTB]
+                                                (
+                                                [TB001]
+                                                ,[TB002]
+                                                ,[TB003]
+                                                ,[TB004]
+                                                ,[TB006]
+                                                ,[TB014]
+                                                ,[TB015]
+                                                ,[FLAG]
+                                                )
+                                                SELECT  
+                                                [TB001]
+                                                ,[TB002]
+                                                ,[TB003]
+                                                ,[TB004]
+                                                ,[TB006]
+                                                ,[TB014]
+                                                ,[TB015]
+                                                ,[FLAG]
+                                                FROM [TK_SFTTEST].dbo.MOCTB
+                                                WHERE 1=1
+                                                AND NOT EXISTS
+                                                (
+	                                                SELECT 1 
+	                                                FROM [SFT_TK_SFTTEST].[dbo].[ERP_MOCTB]
+	                                                WHERE [ERP_MOCTB].TB001=MOCTB.TB001
+	                                                AND [ERP_MOCTB].TB002=MOCTB.TB002
+	                                                AND [ERP_MOCTB].TB003=MOCTB.TB003
+                                                )
+                                                AND TB002 LIKE '%' + @SDATES + '%'
+                                               
+                                                               
+                                                ");
+
+
+                        using (var command = new SqlCommand(sqlBuilder.ToString(), connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@SDATES", SDATES);
+                            command.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in ADD_SFT_MOCTA_MOCTB: {ex.Message}");
+            }
+        }
+
         #endregion
 
         #region BUTTON
@@ -1945,7 +2069,7 @@ namespace TKSCHEDULE_FACTORY
             string SDATES = dateTimePicker1.Value.ToString("yyyyMMdd");
             ADD_SFT_MODETAIL(SDATES);
             ADD_SFT_LOT(SDATES);
-           
+            ADD_SFT_MOCTA_MOCTB(SDATES);
             MessageBox.Show("已完成");
         }
         private void button4_Click(object sender, EventArgs e)
